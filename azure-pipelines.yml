@@ -15,6 +15,13 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: CmdLine@2
+  inputs:
+    script: 'mkdir d:\a\1\MobEAD'
+    #workingDirectory: # Optional
+    #failOnStderr: false # Optional
+
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -32,3 +39,13 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.*'
+    targetFolder: $(build.artifactStaginDirectory)
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    ArtifactName: 'MobEAD'
+    pathToPublish: 'd:\a\1\a'
